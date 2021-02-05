@@ -6,5 +6,12 @@ While this version still has some bugs, it is a good foundation that illustrates
 
 Live Site URL: https://taskbrew.wl.r.appspot.com
 
+**Tech Stack:**
+- Node.js
+- Express
+- HTML/CSS
+- Javascript
+- Nunjucks (Templating)
+
 Note: 
 - This project was originally private on GitLab, moved to GitHub for public access.
