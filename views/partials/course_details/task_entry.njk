@@ -1,0 +1,29 @@
+<div class="card" id="task-entry-{{ task.id }}" style="padding: 5px; margin-bottom: 10px; cursor: pointer">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto">
+            <img src="/icons/task_types/{{ task.type | lower }}/medium.png" alt="{{ task.type }}">
+        </div>
+        <div class="col">
+            <h6 style="margin: 0;"> {{ task.name }} </h6>
+            <p style="margin: 0;" id="{{ task.id }}-due">  </p>
+
+            <script>
+                if (typeof formatTime == 'undefined') {
+                    let formatTime
+                }
+
+                formatTime = formatTimeString("{{ task.dueDate }}", {hour: 'numeric', minute: 'numeric'})
+                $("#{{ task.id }}-due").text(`{{ task.type }} · ${formatTime}`)
+            </script>
+        </div>
+        <div class="col-md-auto d-flex">
+            <div class="task-tag" style="background-color: {{ task.stageColor }}">
+                {{ task.stage }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    assignParameterizedScriptToClick("task-entry-{{ task.id }}", openTaskModal, "{{ task.id }}")
+</script>

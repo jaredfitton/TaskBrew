@@ -1,0 +1,39 @@
+<div class="card" id="task-entry-{{ task.id }}" style="margin: 5px; min-height: 70px; cursor: pointer">
+    <div class="card-body" style="padding: 5px 10px;" id="task-card-{{ task.id }}">
+        <div class="row" id="task-hrow-{{ task.id }}">
+            <div class="col-12 d-flex justify-content-between align-items-start">
+                <h6 style="word-wrap: break-word;"> {{ task.name }} </h6>
+                <img src="/icons/task_types/{{ task.type | lower }}/small.png">
+            </div>
+        </div>
+    
+        <div class="row align-self-end" id="task-frow-{{ task.id }}">
+            <div class="col-12 d-flex justify-content-between">
+                <small style="margin-bottom: 0;"> {{ task.course }} </small>
+                <small style="margin-bottom: 0; text-align: right;" id="task-{{ task.id }}-due-tag">  </small>
+                <script>
+                    if (typeof day == "undefined") {
+                        let day
+                        let time
+                    }
+
+                    day = formatDateString("{{ task.dueDate }}", {weekday: 'short'})
+                    time = formatTimeString("{{ task.dueDate }}", {hour: 'numeric', minute: 'numeric'})
+                    $("#task-{{ task.id }}-due-tag").text(`${day} @ ${time}`)
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    if (typeof space == "undefined") {
+        let space
+    }
+    space = $("#task-card-{{ task.id }}").height()
+        - ($("#task-hrow-{{ task.id }}").height() + $("#task-frow-{{ task.id }}").height())
+
+    $("#task-frow-{{ task.id }}").css('margin-top', space)
+
+    assignParameterizedScriptToClick("task-entry-{{ task.id }}", openTaskModal, "{{ task.id }}")
+</script>

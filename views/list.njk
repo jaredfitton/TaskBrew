@@ -1,0 +1,17 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+    <div class="row d-flex justify-content-start align-items-center" id="top-row">
+        <img src="/icons/add_btn" alt="ADD">
+    </div>
+
+    {% for weekname, week in weeks.items() %}
+        <div class="row">
+            <h4>Week {{ weekname }}</h4>
+            {% include "partials/week_list_card.njk" %}
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

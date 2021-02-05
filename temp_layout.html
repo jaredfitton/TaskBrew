@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>BlinC - {{ page.title }}</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="public/stylesheets/navbar.css">
+    <link rel="stylesheet" href="public/stylesheets/primary.css">
+    <script src="public/javascripts/core.js"></script>
+    <script src="public/javascripts/course_handlers.js"></script>
+</head>
+
+<body>
+
+    <div class="container content-box" id="content">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
+        Launch demo modal
+        </button>
+
+        <div class="modal fade" id="taskModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Task</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="taskForm" class="needs-validation" action="#" method="post" novalidate>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <input class="form-control form-control-lg" type="text" placeholder="Task Name" id="taskName" required>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 35px;">
+                                        <label for="descriptionTextArea" style="font-size: 18px;">Description</label>
+                                        <textarea class="form-control" id="descriptionTextArea" rows="3">The task requires us to do a lot of different thins in a really short period of time, hopefully everything works properly...</textarea>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 35px;">
+                                        <label id="difficultyLabel" for="difficultyRange" style="margin-bottom: 0px; font-size: 18px;">Difficulty: 4</label>
+                                        <p id="brewLevel" style="font-size: 12px;"> Brew Level: Double Shot </p>
+                                        <input type="range" class="slider" min="1" max="10" value="4" step="1" id="difficultyRange" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="statusInput">Status</label>
+                                        <select id="statusInput" class="form-control" required>
+                                            <option disabled selected value>Choose...</option>
+                                            <option>To Do</option>
+                                            <option>Done</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="taskInput">Type</label>
+                                        <select id="taskInput" class="form-control" required>
+                                            <option disabled selected value>Choose...</option>
+                                            <option>Project</option>
+                                            <option>Reading</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="courseInput">Course</label>
+                                        <select id="courseInput" class="form-control">
+                                            <option disabled selected>Choose...</option>
+                                            <option>CS 1800</option>
+                                            <option>None</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dueDate">Due Date</label>
+                                        <input class="form-control" type="text" placeholder="YYYY-MM-DD" id="dueDate" required>
+                                        <input class="form-control" type="text" placeholder="hh:mm" id="dueTime" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="handleTask" class="btn btn-primary">
+                            Create Task
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<script type="module">
+        assignScriptToClick('handleTask', createTaskForm);
+    </script>
+
+<script>
+        var slider = document.getElementById("difficultyRange");
+        var difficultyLabel = document.getElementById("difficultyLabel");
+        var brewLevelParagraph = document.getElementById("brewLevel");
+
+        let brewLevel = ["Decaf", "Instant Coffee with Creamer", "Drip", "Pour Over", "French Press", "Ristretto", "Straight Black Coffee", "Espresso", "Double Shot", "Triple Shot"];
+        brewLevelParagraph.innerHTML = "Brew Level: " + brewLevel[parseInt(slider.value)-1];
+
+        slider.oninput = function() {
+            difficultyLabel.innerHTML = "Difficulty: " + this.value;
+            brewLevelParagraph.innerHTML = "Brew Level: " + brewLevel[parseInt(this.value)-1];
+        }
+</script>
+
+</body>
+
+</html>

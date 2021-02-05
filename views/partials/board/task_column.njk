@@ -1,0 +1,9 @@
+ <div class="card" style="height: 75vh; width: 320px; max-width: 320px;">
+    <div class="card-body" style="padding: 5px; overflow-y: scroll; max-height: 75vh; background-color: #EBEBEB;">
+        <h4 style="padding: 5px;"> {{ column.title }} </h4>
+
+        {% for task in column.tasks %}
+            {% include "partials/board/task_entry.njk" %}
+        {% endfor %}
+    </div>
+ </div>

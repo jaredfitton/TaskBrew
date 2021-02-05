@@ -1,0 +1,95 @@
+{% set scripts = ["task_handlers", "modal_openers", "course_handlers"] %}
+
+{% extends "layout.njk" %}
+
+{% block modals %}
+    {% include "modals/course_meeting_modal.njk" %}{% include "modals/course_resource_modal.njk" %}{% include "modals/task_modal.njk" %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row mb-3" id="top-row">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <h4> {{ course.title }} </h4>
+        </div>
+    </div>
+
+    <div class="row overflow-auto" id="middle-row" style="min-height: 50vh">
+        <div class="col container" id="task-col">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div></div>
+                    <h4> Tasks </h4>
+                    <button style="border: none; background: none;" id="add-task-btn">
+                        <img src="/icons/small_plus.png"  alt="SMALL_PLUS">
+                    </button>
+                    <script>
+                        assignScriptToClick("add-task-btn", openCreateTaskModal)
+                    </script>
+                </div>
+            </div>
+
+            {% for day, tasks in days %}
+                <h6 id="day-{{ day }}-header"></h6>
+                <script>$("#day-{{ day }}-header").text(formatDateString("{{ day }}",
+                        {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'}))</script>
+                {% for task in tasks %}
+                    {% include "partials/course_details/task_entry.njk" %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        <div class="verticle-line"></div>
+
+        <div class="col container" id="details-col">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div></div>
+                    <h4> Class Times </h4>
+                    <button style="border: none; background: none;" id="meetingAdd">
+                        <img src="/icons/small_plus.png" alt="SMALL_PLUS">
+                    </button>
+                    <script>
+                        assignParameterizedScriptToClick("meetingAdd", openAddMeeting, "{{ course.id }}")
+                    </script>
+                </div>
+            </div>
+
+            <div style="height: 19px; margin-bottom: .5rem"></div>
+
+            {% for meeting in course.meetings %}
+                {% include "partials/course_details/course_time.njk" %}
+            {% endfor %}
+
+            <div style="height: 30px"></div>
+
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div></div>
+                    <h4> Resources </h4>
+                    <button style="border: none; background: none;" id="resourceAdd">
+                        <img src="/icons/small_plus.png" alt="SMALL_PLUS">
+                    </button>
+
+                    <script>
+                        assignParameterizedScriptToClick("resourceAdd", openAddResource, "{{ course.id }}")
+                    </script>
+                </div>
+            </div>
+
+            {% for resource in course.resources %}
+                {% include "partials/course_details/course_resource.njk" %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: {{ completion }}%" aria-valuenow="{{ completion }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+    <script>
+        {# assignScriptToClick('meetingAdd', createCourseMeetingForm); #}
+    </script>
+{% endblock %}

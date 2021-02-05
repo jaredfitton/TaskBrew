@@ -1,0 +1,44 @@
+{% set scripts = ["task_handlers", "course_handlers", "modal_openers"] %}
+
+{% extends "layout.njk" %}
+
+{% block modals %}
+    {% include "modals/task_modal.njk" %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row mb-2" id="top-row">
+        <div class="col-12 d-flex justify-content-start align-items-center">
+            <img src="/icons/large_plus.png" id="add-btn" alt="ADD" style="max-height: 50px; cursor: pointer">
+            <script>
+                assignScriptToClick("add-btn", openCreateTaskModal)
+            </script>
+        </div>
+    </div>
+
+    <div class="row mb-2" id="title-row">
+        <div class="col-4">
+            <h4>Weekly Tasks</h4>
+            <h6>{{ date_range }}</h6>
+        </div>
+    </div>
+
+    <div class="row" id="board-row">
+        <div class="col-12" style="overflow-x: scroll; max-width: 90%">
+            <div class="card-deck">
+                {% for column in columns %}
+                    {% include "partials/board/task_column.njk" %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="bar-row">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: {{ completion }}%;"
+                 aria-valuenow="{{ completion }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+{% endblock %}

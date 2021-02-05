@@ -1,0 +1,19 @@
+board {
+    date_range: String // the range of dates for the current week
+    columns: [Column]
+    completion: Int // Difficulty range from 0-100
+}
+
+list {
+    weeks: [week]
+}
+
+course_details {
+    course_title: String
+    daily_tasks: [DailyTask]
+    course_times: [CourseTime]
+    completion: Int // Difficulty range from 0-100
+}
+
+
+    

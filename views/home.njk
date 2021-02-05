@@ -1,0 +1,61 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+    <style>
+        body {
+            background-image: url("/images/main_background.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            background-size: cover;
+        }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.css" />
+    <script type="text/javascript">
+        // FirebaseUI config.
+        var uiConfig = {
+            signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID
+            ],
+            // Terms of service url/callback.
+            tosUrl: '<your-tos-url>',
+            // Privacy policy url/callback.
+            privacyPolicyUrl: function() {
+                window.location.assign('<your-privacy-policy-url>');
+            },
+            signInSuccessUrl: "/"
+        };
+
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+
+        initApp = function() {
+            console.log("Auth listener registered")
+            firebase.auth().onAuthStateChanged(function(user) {
+                console.log("Auth state changed")
+                if (user) {
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    user.getIdToken().then(function(accessToken) {
+                        login(email, accessToken, displayName)
+                    });
+                }
+            }, function(error) {
+                console.log(error);
+            });
+        };
+
+        window.addEventListener('load', function() {
+            initApp()
+        });
+    </script>
+    <div style="margin-top: 300px;">
+        <h1 style="text-align: center; color: white;">Welcome to TaskBrew</h1>
+        <div id="firebaseui-auth-container"></div>
+    </div>
+{% endblock %}

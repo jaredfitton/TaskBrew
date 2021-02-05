@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>TaskBrew - {{ page.title }}</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/navbar.css">
+    <link rel="stylesheet" href="/stylesheets/primary.css">
+    {% for style in styles %}
+        <link rel="stylesheet" href="{{ '/stylesheets/' + style + '.css' }}">
+    {% endfor %}
+    {% for script in scripts %}
+        <script src="{{ '/javascripts/' + script + '.js' }}" charset="utf-8"></script>
+    {% endfor %}
+    <script src="/javascripts/core.js"></script>
+    <script src="/javascripts/auth_handlers.js"></script>
+{#    <script src="/javascripts/auth_handlers.js"></script>#}
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyASsReO_quz7n7RO9UzqChrANUo0wxPWpk",
+            authDomain: "taskbrew.firebaseapp.com",
+            databaseURL: "https://taskbrew-default-rtdb.firebaseio.com",
+            projectId: "taskbrew",
+            storageBucket: "taskbrew.appspot.com",
+            messagingSenderId: "52122159260",
+            appId: "1:52122159260:web:7ef6c14fe655a3d5550559",
+            measurementId: "G-6TGSL3SW0G"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+</head>
+
+<body>
+{#    {% include "navbar.njx" %}#}
+{#    {% include "login_modal.njx" %}#}
+
+    {% block modals %}{% endblock %}
+
+    <div class="wrapper" style="width: 100%; display: flex; align-items: stretch">
+        {% if user.loggedIn %}
+            {% include 'sidebar.njk' %}
+        {% endif %}
+
+        <div class="container content-box" id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>

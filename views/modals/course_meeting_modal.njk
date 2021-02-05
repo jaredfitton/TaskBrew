@@ -1,0 +1,45 @@
+<div class="modal fade" id="courseMeetingModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Course Meeting</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="courseMeetingForm" class="needs-validation" action="#" method="post" novalidate>
+                    <div class="form-group">
+                        <label for="meetingTitle">Title</label>
+                        <input class="form-control form-control-lg" type="text" placeholder="Ex. Prof Lecture" id="meetingTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="meetingDays">Days/Times</label>
+                        <input class="form-control form-control-lg" type="text" placeholder="Ex. M, W, F -- 8:30am to 9:45am" id="meetingDays" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="meetingLink">Meeting Link</label>
+                        <input class="form-control form-control-lg" type="text" placeholder="Ex. www.zoom.com/?meeting-id=123" id="meetingLink">
+                    </div>
+                    <div class="form-group">
+                        <label for="meetingType">Type</label>
+                        <select class="form-control" id="meetingType">
+                            <option>Lecture</option>
+                            <option>Lab</option>
+                            <option>Office Hours</option>
+                        </select>
+                    </div>
+                    <input type="hidden" hidden value="/handlers/add-meeting" id="cmPostLink">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="handleCourseMeeting" class="btn btn-primary">
+                    Create Meeting
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    assignScriptToClick('handleCourseMeeting', createCourseMeetingForm);
+</script>

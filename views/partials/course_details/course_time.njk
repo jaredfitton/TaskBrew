@@ -1,0 +1,19 @@
+<div class="card row" style="margin: 0px; background: #B8D4FF;">
+    {% if meeting.meetingLink %}
+        <a href="{{ meeting.meetingLink }}" class="stretched-link"></a>
+    {% endif %}          
+    <div class="card-body" style="margin: 0px;">
+        <div class="row justify-content-between">
+            <h6 style="padding: 0px;"> {{ meeting.type }} </h6>
+            <h6> Location: {{ meeting.location }} </h6>
+        </div>
+        <div class="row">
+            <p style="margin: 0px;" id="meeting-{{ meeting.idx }}"> </p>
+            <script>
+                {#let formatTime{{ meeting.idx }}#}
+                {#    = formatTimeString("{{ meeting.time }}", {hour: 'numeric', minute: 'numeric'})#}
+                $("#meeting-{{ meeting.idx }}").text("{{ meeting.days }}")
+            </script>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+users: [User]
+tasks: [Task]
+courses: [Course]
+user_settings: [UserSettings]
+
+typealias Color = String // hex
+typealias ID = String
+
+User {
+    id: ID
+    token: FirebaseToken
+    email: String
+    name: String
+    avatarKey: String
+    settingsID: ID
+}
+
+Task {
+    owner: ID
+    id: ID
+    title: String
+    stage: ID
+    type: {"Assignment", "Reading", "Project", "Exam", "Quiz", "Task"}
+    description: String
+    link: URL?
+    dueDate: Date
+    course: ID?
+    complexity: Int
+    colOrder: Int
+}
+
+Course {
+    owner: ID
+    id: ID
+    title: String
+    courseNum: String
+    color: Color
+    resources: [{title: String, link: URL}]
+    meetings: [MeetingEvent]
+    professor: String?
+}
+
+MeetingEvent {
+    type: {"Lab", "Lecture", "Office Hours"}
+    days: [Weekday]
+    time: Time
+    meetingLink: URL?
+    location: String?
+}
+
+UserSettings {
+    stages: [StageConfig]
+}
+
+StageConfig {
+    id: ID // "To-Do" = 0; "Done" = 1
+    name: String
+    order: Int
+    color: Color
+    locked: Bool
+}
+
+
