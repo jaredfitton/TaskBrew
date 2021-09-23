@@ -4,8 +4,6 @@ This project was created by Jared Fitton and Jake Trimble for the 36 hour UCSB h
 
 While this version still has some bugs, it is a good foundation that illustrates what we were looking to achieve.
 
-Live Site URL: https://taskbrew.wl.r.appspot.com
-
 **Tech Stack:**
 - Node.js
 - Express
